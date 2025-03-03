@@ -35,7 +35,6 @@ jobs:
           target: "/var/www/hatemyshit.com/public_html/"
           strip_components: 1
           overwrite: true
-          rm: true  # Deletes existing files before copying
           preserve_times: false
 
       - name: Fix Ownership and Permissions
