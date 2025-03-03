@@ -36,14 +36,3 @@ jobs:
           strip_components: 1
           overwrite: true
           preserve_times: false
-
-      - name: Fix Ownership and Permissions
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          port: 2222
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo chown -R ftp_admin:ftp_admin /var/www/hatemyshit.com/public_html
-            sudo chmod -R 775 /var/www/hatemyshit.com/public_html
