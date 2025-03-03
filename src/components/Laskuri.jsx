@@ -1,7 +1,7 @@
 const laskuri = () => {
   return (
     <div>
-      <p>Laskuri tulee tähän, ja nyt deploy GitHub Actionsin jos on tullakseenkaan</p>
+      <p>Laskuri tulee tähän + GitHub deploy</p>
     </div>
   )
 }

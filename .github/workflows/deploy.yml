@@ -32,9 +32,11 @@ jobs:
           port: 2222
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/*"
-          target: "/var/www/hatemyshit.com/public_html"
+          target: "/var/www/hatemyshit.com/public_html/"
           strip_components: 1
           overwrite: true
+          rm: true  # Deletes existing files before copying
+          preserve_times: false
 
       - name: Fix Ownership and Permissions
         uses: appleboy/ssh-action@master
