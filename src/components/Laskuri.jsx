@@ -1,11 +1,59 @@
-import React from 'react'
+import React from "react";
+import { useState } from "react";
 
-const laskuri = () => {
+const Laskuri = () => {
+  const [amount, setAmount] = useState(""); // Input amount
+  const [vatRate, setVatRate] = useState(20); // Default VAT %
+  const vatRates = [5, 10, 15, 20, 25]; // VAT options
+
+  // Calculate VAT and final price
+  const vatAmount = amount ? (amount * vatRate) / 100 : 0;
+  const finalAmount = amount ? parseFloat(amount) + vatAmount : 0;
+
   return (
-    <div>
-      <p>Laskuri tulee tähän</p>
-    </div>
-  )
-}
+    <div className='max-w-md mx-auto bg-white p-6 rounded-lg shadow-md'>
+      <h2 className='text-xl font-semibold mb-4'>VAT Calculator</h2>
+      <form className='space-y-4'>
+        {/* Amount Input */}
+        <div>
+          <label className='block text-sm font-medium'>Amount (€)</label>
+          <input
+            type='number'
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className='w-full p-2 border rounded'
+            placeholder='Enter amount'
+          />
+        </div>
 
-export default laskuri
+        {/* VAT Dropdown */}
+        <div>
+          <label className='block text-sm font-medium'>VAT Rate (%)</label>
+          <select
+            value={vatRate}
+            onChange={(e) => setVatRate(Number(e.target.value))}
+            className='w-full p-2 border rounded'
+          >
+            {vatRates.map((rate) => (
+              <option key={rate} value={rate}>
+                {rate}%
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Output */}
+        <div className='p-4 bg-gray-100 rounded-md'>
+          <p className='text-sm'>
+            VAT Amount: <strong>€{vatAmount.toFixed(2)}</strong>
+          </p>
+          <p className='text-sm'>
+            Total with VAT: <strong>€{finalAmount.toFixed(2)}</strong>
+          </p>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Laskuri;
