@@ -4,7 +4,7 @@ import { useState } from "react";
 const Laskuri = () => {
   const [amount, setAmount] = useState(""); // Input amount
   const [vatRate, setVatRate] = useState(20); // Default VAT %
-  const vatRates = [5, 10, 15, 20, 25]; // VAT options
+  const vatRates = [10, 14, 25.5]; // VAT options
 
   // Calculate VAT and final price
   const vatAmount = amount ? (amount * vatRate) / 100 : 0;
@@ -20,7 +20,13 @@ const Laskuri = () => {
           <input
             type='number'
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              // Check if the value is a positive number or zero
+              if (value === "" || parseFloat(value) >= 0) {
+                setAmount(value); // Set the value if it's valid
+              }
+            }}
             className='w-full p-2 border rounded'
             placeholder='Enter amount'
           />
