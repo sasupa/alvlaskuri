@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Laskuri.css"; // Import the CSS file
 
 const Laskuri = () => {
   const [amount, setAmount] = useState(""); // Input amount
@@ -9,7 +10,7 @@ const Laskuri = () => {
   const vatMultiplier = vatRate / 100;
 
   // VAT Added (Amount does NOT include VAT)
-  const vatAmountAdded = amount ? (amount * vatMultiplier) : 0;
+  const vatAmountAdded = amount ? amount * vatMultiplier : 0;
   const totalWithVat = amount ? parseFloat(amount) + vatAmountAdded : 0;
 
   // VAT Included (Amount ALREADY includes VAT)
@@ -17,15 +18,14 @@ const Laskuri = () => {
   const vatAmountIncluded = amount ? amount - netAmount : 0;
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">VAT Calculator</h2>
-      <form className="space-y-4">
-        
+    <div className='calculator-container'>
+      <h2 className='title'>VAT Calculator</h2>
+      <form className='form-container'>
         {/* Amount Input */}
-        <div>
-          <label className="block text-sm font-medium">Amount (€)</label>
+        <div className='form-group'>
+          <label>Amount (€)</label>
           <input
-            type="number"
+            type='number'
             value={amount}
             onChange={(e) => {
               const value = e.target.value;
@@ -33,18 +33,16 @@ const Laskuri = () => {
                 setAmount(value);
               }
             }}
-            className="w-full p-2 border rounded"
-            placeholder="Enter amount"
+            placeholder='Enter amount'
           />
         </div>
 
         {/* VAT Dropdown */}
-        <div>
-          <label className="block text-sm font-medium">VAT Rate (%)</label>
+        <div className='form-group'>
+          <label>VAT Rate (%)</label>
           <select
             value={vatRate}
             onChange={(e) => setVatRate(Number(e.target.value))}
-            className="w-full p-2 border rounded"
           >
             {vatRates.map((rate) => (
               <option key={rate} value={rate}>
@@ -55,27 +53,26 @@ const Laskuri = () => {
         </div>
 
         {/* VAT Added Output */}
-        <div className="p-4 bg-gray-100 rounded-md">
-          <h3 className="text-sm font-semibold mb-1">VAT Added</h3>
-          <p className="text-sm">
+        <div className='output-box'>
+          <h3>VAT Added</h3>
+          <p>
             VAT Amount: <strong>€{vatAmountAdded.toFixed(2)}</strong>
           </p>
-          <p className="text-sm">
+          <p>
             Total with VAT: <strong>€{totalWithVat.toFixed(2)}</strong>
           </p>
         </div>
 
         {/* VAT Included Output */}
-        <div className="p-4 bg-gray-200 rounded-md">
-          <h3 className="text-sm font-semibold mb-1">VAT Included</h3>
-          <p className="text-sm">
+        <div className='output-box'>
+          <h3>VAT Included</h3>
+          <p>
             VAT Amount: <strong>€{vatAmountIncluded.toFixed(2)}</strong>
           </p>
-          <p className="text-sm">
+          <p>
             Net Amount (excl. VAT): <strong>€{netAmount.toFixed(2)}</strong>
           </p>
         </div>
-
       </form>
     </div>
   );
